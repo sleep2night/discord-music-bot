@@ -1,3 +1,4 @@
+# Python Version Compatibility: 3.8 to 3.11
 import config
 import discord
 from discord.ext import commands
