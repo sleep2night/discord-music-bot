@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix='!',intents=intents)
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
 
-@bot.command()
+@bot.command(aliases=['connect'])
 async def join(ctx):
     if ctx.author.voice:
         channel = ctx.author.voice.channel
@@ -23,7 +23,7 @@ async def join(ctx):
     else:
         await ctx.send("You're not in a voice channel.")
 
-@bot.command()
+@bot.command(aliases=['disconnect','quit'])
 async def leave(ctx):
     if ctx.voice_client:
         await ctx.voice_client.disconnect()
