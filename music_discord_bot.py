@@ -123,7 +123,7 @@ async def skip(ctx):
         await ctx.send('No audio is playing.')
 
 @bot.command()
-async def help(ctx):
+async def help_music(ctx):
     help_msg = """
     **Commands:**
     - !join, !connect: Connects the bot to the voice channel you are in.
