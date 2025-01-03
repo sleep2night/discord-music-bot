@@ -104,6 +104,38 @@ async def stop(ctx):
     else:
         await ctx.send('No audio is playing.')
 
+@bot.command()
+async def volume(ctx, vol: int = 50):
+    voice_client = ctx.voice_client
+    if 0 <= vol <= 100:
+        voice_client.source.volume = vol / 100
+        await ctx.send(f'Set the volume to {vol}%')
+    else:
+        await ctx.send('Volume must be between 0 and 100.')
 
+@bot.command()
+async def skip(ctx):
+    voice_client = ctx.voice_client
+    if voice_client.is_playing():
+        voice_client.stop()
+        await ctx.send('Skipped the audio.')
+    else:
+        await ctx.send('No audio is playing.')
 
+@bot.command()
+async def help(ctx):
+    help_msg = """
+    **Commands:**
+    - !join, !connect: Connects the bot to the voice channel you are in.
+    - !leave, !disconnect, !quit: Disconnects the bot from the voice channel.
+    - !play [song title or URL]: Plays the audio of the provided song.
+    - !pause: Pauses the audio.
+    - !resume: Resumes the audio.
+    - !stop: Stops the audio.
+    - !volume [0-100]: Sets the volume of the audio.
+    - !skip: Skips the current audio.
+    - !help: Displays this message.
+    """
+    await ctx.send(help_msg)
+    
 bot.run(DISCORD_TOKEN)
