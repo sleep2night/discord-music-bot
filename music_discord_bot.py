@@ -9,6 +9,7 @@ YT_API_KEY = config.YT_API_KEY
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!',intents=intents)
+default_volume = 0.5
 
 @bot.event
 async def on_ready():
@@ -74,7 +75,7 @@ async def play(ctx, *, search: str = None):
         
         source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(url, options='-vn'))
         voice_client.play(source)
-        voice_client.source.volume = 0.5
+        voice_client.source.volume = default_volume
         await ctx.send(f'Playing: {title}')
 
 @bot.command()
@@ -126,15 +127,15 @@ async def skip(ctx):
 async def help_music(ctx):
     help_msg = """
     **Commands:**
-    - !join, !connect: Connects the bot to the voice channel you are in.
-    - !leave, !disconnect, !quit: Disconnects the bot from the voice channel.
-    - !play [song title or URL]: Plays the audio of the provided song.
-    - !pause: Pauses the audio.
-    - !resume: Resumes the audio.
-    - !stop: Stops the audio.
-    - !volume [0-100]: Sets the volume of the audio.
-    - !skip: Skips the current audio.
-    - !help: Displays this message.
+- !join, !connect: Connects the bot to the voice channel you are in.
+- !leave, !disconnect, !quit: Disconnects the bot from the voice channel.
+- !play [song title or URL]: Plays the audio of the provided song.
+- !pause: Pauses the audio.
+- !resume: Resumes the audio.
+- !stop: Stops the audio.
+- !volume [0-100]: Sets the volume of the audio.
+- !skip: Skips the current audio.
+- !help: Displays this message.
     """
     await ctx.send(help_msg)
     
