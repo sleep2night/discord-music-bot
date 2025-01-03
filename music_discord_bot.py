@@ -74,8 +74,36 @@ async def play(ctx, *, search: str = None):
         
         source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(url, options='-vn'))
         voice_client.play(source)
-        
+        voice_client.source.volume = 0.5
         await ctx.send(f'Playing: {title}')
-    
+
+@bot.command()
+async def pause(ctx):
+    voice_client = ctx.voice_client
+    if voice_client.is_playing():
+        voice_client.pause()
+        await ctx.send('Paused the audio.')
+    else:
+        await ctx.send('No audio is playing.')
+
+@bot.command()
+async def resume(ctx):
+    voice_client = ctx.voice_client
+    if voice_client.is_paused():
+        voice_client.resume()
+        await ctx.send('Resumed the audio.')
+    else:
+        await ctx.send('Audio is not paused.')
+
+@bot.command()
+async def stop(ctx):
+    voice_client = ctx.voice_client
+    if voice_client.is_playing():
+        voice_client.stop()
+        await ctx.send('Stopped the audio.')
+    else:
+        await ctx.send('No audio is playing.')
+
+
 
 bot.run(DISCORD_TOKEN)
